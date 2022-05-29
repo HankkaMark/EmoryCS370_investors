@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock_Dashboard</title>
+ 
+    <script src="../static/JS_Code/jquery-1.11.1.min.js"></script>
+    <script src="../static/JS_Code/echarts.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+
+        window.onload=function (){
+
+            $.get("/recommendlist",function(data,status){
+           var content=""
+
+           var data=data["recommendlist"]
+
+           for(var i=0;i<data.length;i++){
+            
+               content+="  <div class='panel panel-default'><div class='panel-body' style='text-align:center'>"+data[i]+"</div></div>"
+           }
+       
+
+           $(".recommendlist").html(content)
+    })
+         
+
+         
+        
+
+        }
+
+
+
+    </script>
+
+
+</head>
+<body>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Investor</a>
+        </div>
+        <div>
+            <!--Align Left-->
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                    <a href="/" >
+                        Home
+                     
+                    </a>
+                   
+                </li>
+                {% if current_user.username %}
+                <li>
+                    <a href="/watchlist" >
+                        WatchList
+                   
+                    </a>
+                   
+                </li>
+                {% endif %}
+                <li>
+                    <a href="/contrastlist" >
+                        Compare
+                   
+                    </a>
+                   
+                </li>
+                
+            </ul>
+
+           <ul  class="nav navbar-nav navbar-right">
+       
+      
+                <li>
+
+            
+            <form class="navbar-form" action="/" method="post">
+                <input class="form-control" type="text" placeholder="Search" name="stock" style="width: 400px;" id="socket">
+                <input  name="zhi"  style="display:none" value="search">
+                <button class="btn btn-light" type="submit" id="search">Search</button>
+              </form>
+            </li>
+            
+            {% if current_user.username %}
+           
+            <li ><a href="/person">{{ current_user.username }}</a></li>
+            <li ><a href="/logout">logout</a></li>
+   
+
+
+
+            {% else %}
+            <li ><a href="/login">login</a></li>
+                <li ><a href="/signup">sign up</a></li>
+                {% endif %}
+        </ul>
+        </div>
+        </div>
+    </nav>
+
+
+    <div class="row body" style="margin-top:20px">
+  
+
+ 
+        <div class="col-sm-2 left">
+
+            
+<div class="panel panel-default">
+    <div class="panel-heading" style="text-align: center;">
+      <h3> Recommended Buy</h1>
+        <p>(Refresh every 2 hours)</p>
+    </div>
+    <div class="panel-body">
+
+            <div style="height: 700px;margin: 30px;border-radius: 15px" class="recommendlist">
+               
+
+                <div class="panel panel-default">
+                    <div class="panel-body" style='text-align:center'>
+                        DVN
+                    </div>
+                </div><div class="panel panel-default">
+                    <div class="panel-body" style='text-align:center'>
+                        MRO
+                    </div>
+                </div><div class="panel panel-default">
+                    <div class="panel-body" style='text-align:center'>
+                        FANG
+                    </div>
+                </div><div class="panel panel-default">
+                    <div class="panel-body" style='text-align:center'>
+                        TSLA
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body" style='text-align:center'>
+                        APA
+                    </div>
+                </div>
+           
+            </div>
+
+        </div>
+        </div>
+        </div>
+
+        <div class="col-sm-10">
+        
+<div class="row" style="margin-right: 30px;">
+
+    <div class="col-sm-12">
+      
+        {% block content %}
+            
+        {% endblock content %}
+    </div>
+</div>
+
+            </div>
+  
+            
+
+
+
+
+
+    </div>
+</div>
+
+
+
+</body>
+</html>

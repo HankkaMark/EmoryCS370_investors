@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="panel panel-default" style="min-height: 600px;">
+    <div class="panel-heading">
+      <h1> Stock comparison</h1>
+    </div>
+    <div class="panel-body">
+        <div class="row" style="margin-top: 20px;">
+          <div class="col-sm-12" style="text-align: center;">
+            Type the stock name below (e.g. AAPL)
+            </div>
+            <div class="col-sm-12" style="text-align: center;margin-top: 30px;">
+         
+                <form class="form-inline" action="/contrastlist" method="get" >
+              
+                    <input class="form-control" type="text"  name="stock1" >
+                    <input class="form-control" type="text" name="stock2" style="margin-left: 50px;" >
+                    <button class="btn btn-light" type="submit" id="search">compare</button>
+                  </form>
+            </div>
+
+        </div>
+        <hr>
+
+        {% if msg %}
+        <div class="row">
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-6">
+                <div class="alert alert-warning">{{msg}}</div>
+            </div>
+        </div>
+  
+            
+        {% endif %}
+        {% if data %}
+
+                
+<hr>
+
+
+<div class="row" style="margin-top: 30px;">
+        
+ 
+<div class="col-sm-3"></div>
+<div class="col-sm-6" >
+    <table class="table" style="font-size: 26px;">
+        <thead>
+          <tr>
+            <th></th>
+            <th>{{data.stock1}}</th>
+            <th>{{data.stock2}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>PE Ratio (TTM)</td>
+            <td 
+            {% if data.PE_ratio.color==1 %}
+                style="color: red;"
+                {% else %}
+                style="color: green;"
+            {% endif %}
+                >{{data.PE_ratio.value1}}</td>
+            <td  {% if data.PE_ratio.color==1 %}
+            style="color: green;"
+            {% else %}
+            style="color: red;"
+        {% endif %}>{{data.PE_ratio.value2}}</td>
+          </tr>
+          <tr>
+            <td>Ask</td>
+            <td>{{data.Ask.value1}}</td>
+            <td>{{data.Ask.value2}}</td>
+          </tr>
+          <tr>
+            <td>Bid</td>
+            <td>{{data.Bid.value1}}</td>
+            <td>{{data.Bid.value2}}</td>
+          </tr>
+          <tr>
+            <td>Volume</td>
+            <td  {% if data.PE_ratio.color==1 %}
+            style="color: red;"
+            {% else %}
+            style="color: green;"
+        {% endif %}>{{data.Volume.value1}}</td>
+            <td {% if data.PE_ratio.color==1 %}
+            style="color: green;"
+            {% else %}
+            style="color: red;"
+        {% endif %}>{{data.Volume.value2}}</td>
+          </tr>
+          <tr>
+            <td>Open</td>
+            <td  {% if data.PE_ratio.color==1 %}
+            style="color: red;"
+            {% else %}
+            style="color: green;"
+        {% endif %}>{{data.Open.value1}}</td>
+            <td {% if data.PE_ratio.color==1 %}
+            style="color: green;"
+            {% else %}
+            style="color: red;"
+        {% endif %}>{{data.Open.value2}}</td>
+          </tr>
+          <tr>
+            <td>Previous Close</td>
+            <td  {% if data.PE_ratio.color==1 %}
+            style="color: red;"
+            {% else %}
+            style="color: green;"
+        {% endif %}>{{data.Previous_Close.value1}}</td>
+            <td {% if data.PE_ratio.color==1 %}
+            style="color: green;"
+            {% else %}
+            style="color: red;"
+        {% endif %}>{{data.Previous_Close.value2}}</td>
+          </tr>
+          <tr>
+            <td>Beta</td>
+            <td  {% if data.PE_ratio.color==1 %}
+            style="color: red;"
+            {% else %}
+            style="color: green;"
+        {% endif %}>{{data.Beta.value1}}</td>
+            <td {% if data.PE_ratio.color==1 %}
+            style="color: green;"
+            {% else %}
+            style="color: red;"
+        {% endif %}>{{data.Beta.value2}}</td>
+          </tr>
+          <tr>
+            <td>Market Cap</td>
+            <td >{{data.Market_Cap.value1}}</td>
+            <td>{{data.Market_Cap.value2}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+</div>
+
+</div>
+
+            
+        {% endif %}
+            
+
+            
+        
+    </div>
+</div>
+
+
+
+    
+{% endblock content %}
+    

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../static/js的副本/jquery-1.11.1.min.js"></script>
+    <script>
+
+        window.onload=function (){
+            $('.submit').click(function (){
+                var nei=$('#nei').val();
+                alert('指令已发送！');
+                $.ajax({
+                    type:'POST',
+                    url:'/',
+                    data:'zhi=Go',
+                    success: function (data){
+
+                    alert(data.coco);
+                    alert(data.aa);
+
+
+
+                    },
+                    error:function (data){
+
+
+
+                    }
+                })
+            })
+
+        }
+    </script>
+
+</head>
+<body>
+
+    <button class="submit">执行函数</button>
+
+
+
+</body>
+</html>

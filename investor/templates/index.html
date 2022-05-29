@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+
+{% block content %}
+      
+{% if msg %}
+<div class="alert alert-warning">{{msg}}</div>
+    
+{% endif %}
+
+
+
+{% if data %}
+    
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <h1> Home</h1>
+    </div>
+    <div class="panel-body">
+        <div class="col-sm-12" >
+          <h3>Filter by price range:</h3>
+        <p style="margin-left: 10px;"> (shown on the left column)</p>
+        </div>
+ 
+        <div class="col-sm-12" >
+            <div class="col-sm-3"></div>
+            <form class="form-inline" action="/contrastlist" method="get" style="margin:0 auto">
+                <label style="font-size: 24px;">Price Range:</label>
+                <input class="form-control" type="text"  name="frroom" style="margin-left: 50px;" id="frroom">
+                <input class="form-control" type="text" name="tooo" style="margin-left: 50px;" id="tooo">
+                <button class="btn btn-light" type="button" id="Shai" > Add filter</button>
+              </form>
+        </div>
+  
+
+    
+
+
+<div class="row" style="margin-top: 60px;" >
+
+    <div class="col-sm-12">
+        <hr>    
+<h2>{{data.stock}}  <span style="font-size: 20px;color: red;">{% if data.price %}
+    {{data.price}}
+{% endif %}</span></h3>
+    {% if current_user %}
+    {% if data.watchBtn %}
+    
+    {% if watch %}
+    
+    <button class="btn btn-default watchbtn" onclick="watchNow('{{data.stock}}')">Watched</button>
+    {% else %}
+    <button class="btn btn-default watchbtn" onclick="watchNow('{{data.stock}}')">Watch</button>
+
+    {% endif %}
+        
+    {% endif %}
+{% endif %}
+
+        
+    </div>
+
+<div class="col-sm-12" style="margin-top: 30px;">
+    <div class="row">
+<div class="col-sm-3" style="text-align: center;">
+    <div class="panel panel-default">
+        <div class="panel-body" style="text-align: center;font-size: 20px;">
+            {{data.eight_data.1}}
+        </div>
+    </div>
+
+</div>
+<div class="col-sm-3" style="text-align: center;">
+    <div class="panel panel-default">
+        <div class="panel-body" style="text-align: center;font-size: 20px;">
+            {{data.eight_data.2}}
+        </div>
+    </div>
+
+</div>
+<div class="col-sm-3" style="text-align: center;">
+    <div class="panel panel-default">
+        <div class="panel-body" style="text-align: center;font-size: 20px;">
+            {{data.eight_data.3}}
+        </div>
+    </div>
+
+</div>
+<div class="col-sm-3" style="text-align: center;">
+    <div class="panel panel-default">
+        <div class="panel-body" style="text-align: center;font-size: 20px;">
+            {{data.eight_data.4}}
+        </div>
+    </div>
+
+</div>
+<div class="col-sm-3" style="text-align: center;">
+    <div class="panel panel-default">
+        <div class="panel-body" style="text-align: center;font-size: 20px;">
+            {{data.eight_data.5}}
+        </div>
+    </div>
+
+</div>
+<div class="col-sm-3" style="text-align: center;">
+    <div class="panel panel-default">
+        <div class="panel-body" style="text-align: center;font-size: 20px;">
+            {{data.eight_data.6}}
+        </div>
+    </div>
+
+</div>
+<div class="col-sm-3" style="text-align: center;">
+    <div class="panel panel-default">
+        <div class="panel-body" style="text-align: center;font-size: 20px;">
+            {{data.eight_data.7}}
+        </div>
+    </div>
+
+</div>
+<div class="col-sm-3" style="text-align: center;">
+    <div class="panel panel-default">
+        <div class="panel-body" style="text-align: center;font-size: 20px;">
+            {{data.eight_data.8}}
+        </div>
+    </div>
+
+</div>
+
+    </div>
+
+</div>
+
+</div>
+<div class="row">
+    
+    {% if data.image %}
+                
+    <img id="imgs" src="/{{data.image}}"style="width: 90%;height: 400px;margin-left: 50px;margin-top: 50px">
+    {% endif %}
+        
+
+
+
+
+</div>
+
+
+            
+
+            
+        
+    </div>
+</div>
+{% endif %}
+    
+
+
+
+
+<script>
+
+function watchNow(stock){
+    $.get("/watch?stock="+stock,function(data,status){
+        if(data.code===1){
+            $(".watchbtn").html("Unwatch")
+            alert("Successfully Watched")
+        }else{
+            $(".watchbtn").html("watch")
+            alert("Successfully Unwatched")
+        }
+      
+    })
+    
+
+}
+
+$("#Shai").click(function (){
+
+var frroom=$("#frroom").val();
+var tooo=$("#tooo").val();
+$.get("/ab?frrom="+frroom+"&"+"tooo="+tooo,function(data,status){
+           var content=""
+
+           var data=data["Sd"]
+
+           for(var i=0;i<data.length;i++){
+            
+               content+="  <div class='panel panel-default'><div class='panel-body' style='text-align:center'>"+data[i]+"</div></div>"
+           }
+       
+
+           $(".recommendlist").html(content)
+        })
+    })
+
+
+
+</script>
+
+    
+{% endblock content %}
+    
